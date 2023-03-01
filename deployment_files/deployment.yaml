@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+  labels:
+    environment: prod
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      name: my-app-pod
+      labels:
+        app: my-app
+        environment: Prod
+    spec:
+      containers: # List
+        - name: my-app-container
+          image: {{.Values.image}}
+          ports: # List
+            - containerPort: 8080
